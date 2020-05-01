@@ -56,8 +56,7 @@ SCRIPT
 $netopeer = <<SCRIPT
 rm -rf Netopeer2
 git clone -b devel-server https://github.com/CESNET/Netopeer2.git
-mkdir Netopeer2/keystored
-cd Netopeer2/keystored; mkdir build; cd build
+mkdir -p Netopeer2/keystored/build; cd Netopeer2/keystored/build
 cmake .. && make && make install
 cd ../../server; mkdir build; cd build
 cmake .. && make && make install
@@ -120,7 +119,7 @@ Vagrant.configure("2") do |config|
     gui.vm.network "forwarded_port", host: "4200", guest: "4200", auto_correct: true
     gui.vm.network "forwarded_port", host: "8830", host_ip: "127.0.0.1", guest: "830", auto_correct: true
     gui.ssh.shell = "sh"
-
+    gui.vm.network "private_network", ip: "192.168.56.200", virtualbox__inet: true
     gui.vm.provision :shell, inline: $tools
     gui.vm.provision :shell, inline: $libyang
     gui.vm.provision :shell, inline: $libnetconf2
