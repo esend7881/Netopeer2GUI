@@ -56,6 +56,7 @@ SCRIPT
 $netopeer = <<SCRIPT
 rm -rf Netopeer2
 git clone -b devel-server https://github.com/CESNET/Netopeer2.git
+mkdir Netopeer2/keystored
 cd Netopeer2/keystored; mkdir build; cd build
 cmake .. && make && make install
 cd ../../server; mkdir build; cd build
